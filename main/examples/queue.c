@@ -176,13 +176,13 @@ static esp_err_t queue_send_and_block_if_full(const queue_data_t *p_data)
         p_data->demo_float,
         p_data->demo_string);
 
-    /**
-     * TODO: Send the data to the queue and block if the queue is full.
-     * HINT: Use xQueueSend()
-     * Delete the following two lines after you have implemented the function.
-     */
-    ESP_LOGW(TAG, "[QUEUE] You have not implemented the queue_send_and_block_if_full function yet!");
-    return ESP_FAIL;
+    /* Send the data to the queue and block if the queue is full */
+    BaseType_t xErr = xQueueSend(xQueue, p_data, portMAX_DELAY);
+    if (xErr != pdPASS)
+    {
+        ESP_LOGE(TAG, "[QUEUE] Failed to send data to the queue!");
+        return ESP_FAIL;
+    }   
 
     /* Return ESP_OK if the data was sent successfully */
     return ESP_OK;
@@ -190,13 +190,13 @@ static esp_err_t queue_send_and_block_if_full(const queue_data_t *p_data)
 
 static esp_err_t queue_receive_and_block_if_empty(queue_data_t *p_data)
 {
-    /**
-     * TODO: Wait for the queue to have data and then receive the data from the queue, then store it in the p_data parameter.
-     * HINT: Use xQueueReceive()
-     * Delete the following two lines after you have implemented the function.
-     */
-    ESP_LOGW(TAG, "[QUEUE] You have not implemented the queue_receive_and_block_if_empty function yet!");
-    return ESP_FAIL;
+    /* Wait for the queue to have data and then receive the data from the queue, then store it in the p_data parameter */
+    BaseType_t xErr = xQueueReceive(xQueue, p_data, portMAX_DELAY);
+    if (xErr != pdPASS)
+    {
+        ESP_LOGE(TAG, "[QUEUE] Failed to receive data from the queue!");
+        return ESP_FAIL;
+    }
 
     /* Log the received data */
     ESP_LOGI(TAG, "[QUEUE] Received data:\n"

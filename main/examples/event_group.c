@@ -108,13 +108,12 @@ static void event_group_deinit(void)
  */
 static esp_err_t event_group_wait(EventBits_t flagToWait)
 {
-    /**
-     * TODO: Wait on the event group for the flag to be set.
-     * HINT: Use xEventGroupWaitBits() with the flagToWait parameter.
-     * Delete the following two lines after you have implemented the function.
-     */
-    ESP_LOGW(TAG, "[EVENT GROUP] You have not implemented the event_group_wait function yet!");
-    return ESP_FAIL;
+    /* Wait on the event group for the flag to be set */
+    EventBits_t eventBits = xEventGroupWaitBits(xEventGroup, flagToWait, pdTRUE, pdTRUE, portMAX_DELAY);
+    if (!(eventBits & flagToWait))
+    {
+        return ESP_ERR_INVALID_STATE;
+    }
 
     /* Return ESP_OK if the other task set their event group flag */
     return ESP_OK;
@@ -127,15 +126,8 @@ static esp_err_t event_group_wait(EventBits_t flagToWait)
  */
 static esp_err_t event_group_set(EventBits_t flagToSet)
 {
-    /**
-     * TODO: Set the event group flag using xEventGroupSetBits().
-     * HINT: Use xEventGroupSetBits() with the flagToSet parameter.
-     * Delete the following two lines after you have implemented the function.
-     */
-    ESP_LOGW(TAG, "[EVENT GROUP] You have not implemented the event_group_set function yet!");
-    return ESP_FAIL;
-
-    /* Return ESP_OK if the flag was set */
+    /* Set the event group flag */
+    xEventGroupSetBits(xEventGroup, flagToSet);
     return ESP_OK;
 }
 

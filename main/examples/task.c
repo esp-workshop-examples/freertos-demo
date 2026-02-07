@@ -68,19 +68,15 @@ static esp_err_t task_create(TaskHandle_t *p_TaskHandle, int taskId, int iterati
         .iterations = iterations
     };
 
-    /**
-     * TODO: Create a task and return the task handle using the task_function function.
-     * HINT: Use xTaskCreate() with the following parameters:
-     * - The task function to execute: task_function
-     * - The name of the task: "Task<taskId>"
-     * - The stack size of the task: TASK_STACK_SIZE
-     * - The priority of the task: 1
-     * - The task data to pass to the task: &taskData[taskId]
-     * - The task handle to return: p_TaskHandle
-     * Delete the following two lines after you have implemented the function.
-     */
-    ESP_LOGW(TAG, "[TASK] You have not implemented the task_create function yet!");
-    return ESP_FAIL;
+    /* Create the task */
+    char taskName[15];
+    snprintf(taskName, sizeof(taskName), "Task%d", taskId);
+    BaseType_t xErr = xTaskCreate(task_function, taskName, TASK_STACK_SIZE, &taskData[taskId], 1, p_TaskHandle);
+    if (xErr != pdPASS)
+    {
+        ESP_LOGE(TAG, "[TASK] Failed to create task %d!", taskId);
+        return ESP_FAIL;
+    }
 
     /* Return ESP_OK if the task was created successfully */
     return ESP_OK;
