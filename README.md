@@ -11,7 +11,7 @@ Each example can be enabled/disabled in the menuconfig (`idf.py menuconfig`), un
 
 > FreeRTOS Demo Configuration > Example Selection
 
-The examples are **incomplete**, and you will need to fill in the sections marked `TODO` in the comments. A hint is provided!
+In this branch, the examples are **completed!**! You can view the suggested implementations.
 
 ### Tasks
 
