@@ -1,0 +1,7 @@
+# build folder
+build/
+
+# SDK configuration
+sdkconfig
+sdkconfig.old
+dependencies.lock

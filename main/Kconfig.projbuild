@@ -1,0 +1,25 @@
+menu "FreeRTOS Demo Configuration"
+
+    menu "Example Selection"
+
+        config FREERTOS_DEMO_TASK_ENABLED
+            bool "Enable task example"
+            default true
+            help
+                (examples/task.c) Demonstrates how to use FreeRTOS tasks.
+
+        config FREERTOS_DEMO_QUEUE_ENABLED
+            bool "Enable queue example"
+            default true
+            help
+                (examples/queue.c) Demonstrates how to use FreeRTOS queues for passing data between tasks.
+
+        config FREERTOS_DEMO_EVENT_GROUP_ENABLED
+            bool "Enable event group example"
+            default true
+            help
+                (examples/event_group.c) Demonstrates how to use FreeRTOS event groups for cross-task synchronization.
+
+    endmenu
+
+endmenu

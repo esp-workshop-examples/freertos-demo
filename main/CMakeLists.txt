@@ -1,0 +1,21 @@
+set(FREERTOS_DEMO_PRIV_INCLUDE_DIRS ${CMAKE_CURRENT_LIST_DIR}/include)
+set(FREERTOS_DEMO_SRCS 
+    ${CMAKE_CURRENT_LIST_DIR}/common/completion_marker.c
+    ${CMAKE_CURRENT_LIST_DIR}/freertos-demo.c
+)
+
+# Add the examples to the component
+if (CONFIG_FREERTOS_DEMO_TASK_ENABLED)
+    list(APPEND FREERTOS_DEMO_SRCS ${CMAKE_CURRENT_LIST_DIR}/examples/task.c)
+endif()
+if (CONFIG_FREERTOS_DEMO_QUEUE_ENABLED)
+    list(APPEND FREERTOS_DEMO_SRCS ${CMAKE_CURRENT_LIST_DIR}/examples/queue.c)
+endif()
+if (CONFIG_FREERTOS_DEMO_EVENT_GROUP_ENABLED)
+    list(APPEND FREERTOS_DEMO_SRCS ${CMAKE_CURRENT_LIST_DIR}/examples/event_group.c)
+endif()
+
+idf_component_register(
+    SRCS ${FREERTOS_DEMO_SRCS}
+    PRIV_INCLUDE_DIRS ${FREERTOS_DEMO_PRIV_INCLUDE_DIRS}
+)
